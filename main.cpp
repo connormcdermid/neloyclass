@@ -4,34 +4,62 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+	if (argc == 1) {
+		cout << "Neloy C++ template generator v0.2" << endl;
+		cout << "Copyright Connor McDermid (C). All rights reserved." << endl;
+		cout << "Licensed under the WTFPL Public License. See http://www.wtfpl.net for full license text." << endl;
+		return 0;
+	}
 
-    ofstream file;
-    string filename = argv[1];
-    filename += ".cpp";
-    file.open(filename);
-    /*
-    // license text lmao
-    file << "/** This file generated automatically by Connor McDermid's Lab File Template Generator." << endl;
-    file << "DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE" << endl;
-    file << "Version 2, December 2004" << endl;
-    file << "Copyright (C) Sam Hocevar <sam@hocevar.net>" << endl;
-    file << "Everyone is permitted to copy and distribute verbatim or modified copies of this license document," << endl;
-    file << "and changing it is allowed as long as the name is changed." << endl;
-    file << "DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE" << endl;
-    file << "TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION, AND MODIFICATION" << endl;
-    file << "\n";
-    file << "0. You just DO WHAT THE FUCK YOU WANT TO." << endl;
-    */
-    // real template now
-    file << "#include <iostream>" << endl;
-    file << "//#include <string>" << endl;
-    file << "//#inglude <vector>" << endl;
-    file << "//#include <cmath>" << endl;
-    file << "// more includes go here" << endl;
-    file << endl << "using namespace std;" << endl;
-    file << endl << "int main() {" << endl;
-    file << "    \n";
-    file << "    return 0;" << endl;
-    file << "}" << endl;
-    return 0;
+	if (argc == 2) {
+		ofstream file;
+		string filename = argv[1]; // these are std::strings
+		filename += ".cpp";
+		file.open(filename);
+		file << "#include <iostream>" << endl;
+		file << "//#include <string>" << endl;
+		file << "//#inglude <vector>" << endl;
+		file << "//#include <cmath>" << endl;
+		file << "// more includes go here" << endl;
+		file << endl << "using namespace std;" << endl;
+		file << endl << "int main(int argc, char** argv) {" << endl;
+		file << "    \n";
+		file << "    return 0;" << endl;
+		file << "}" << endl;
+		file.close();
+		return 0;
+	}
+	if (argv[1] == "-c") {
+		ofstream hfile;
+		string hname = argv[2]; // again a std::string
+		string cname = argv[2];
+		hname += ".h";
+		hfile.open(hname);
+
+		hfile << "#ifndef " << cname << endl; // header guard opening
+		hfile << "#define " << cname << endl;
+
+		hfile << endl;
+		hfile << "class " << cname << "{" << endl;
+		hfile << "	" << endl;
+		hfile << "	private:" << endl;
+		hfile << "		" << endl;
+		hfile << "	public:" << endl;
+		hfile << "		" << endl;
+		hfile << "};" << endl;
+		hfile << endl;
+
+		hfile << "#endif" << endl; // header guard end
+
+		hfile.close();
+		ofstream sfile;
+		string sname = cname + ".cpp";
+
+		sfile.open(sname); // opening the source file now
+		sfile << "#include \"" << hname << "\"" << endl;
+		sfile << endl; 
+
+		sfile.close();
+		return 0; // done, wrap it up.
+	}
 }

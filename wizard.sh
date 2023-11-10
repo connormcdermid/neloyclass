@@ -11,7 +11,7 @@ else
 		echo "Ignoring path errors..."
 		exit 1
 	fi
-	echo 'PATH="~/bin${PATH:+:${PATH}}"' >> ~/.bash_profile
+	echo 'PATH="~/bin${PATH:+:${PATH}}" # Adds ~/bin to PATH' >> ~/.bashrc
 	PATH="~/bin${PATH:+:${PATH}}"
 	echo "Path fixed. Continuing..."
 fi
